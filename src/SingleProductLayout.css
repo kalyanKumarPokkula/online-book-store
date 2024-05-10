@@ -1,0 +1,75 @@
+.product-title {
+  font-size: 30px;
+  font-family: Montserrat;
+  font-weight: 600;
+  line-height: 37px;
+  overflow: hidden;
+  text-align: left;
+  color: #000;
+  padding-top: 0;
+  padding-bottom: 4px;
+}
+
+.price {
+  font-size: 30px;
+  font-family: Montserrat;
+  font-weight: 600;
+  line-height: 37px;
+  overflow: hidden;
+  text-align: left;
+  color: #000;
+  margin-top: 20px;
+  margin-left: 12px;
+}
+
+.btn1 {
+  max-width: 255px !important;
+  height: 40px;
+  border: 0.5px solid #3e434b;
+  border-radius: 5px;
+  font-family: Montserrat;
+  font-size: 14px;
+  line-height: 10px;
+  min-height: 35px !important;
+  font-weight: 600;
+  background: #fff;
+  color: #000;
+  text-transform: uppercase;
+  width: 100% !important;
+}
+
+.btn2 {
+  max-width: 255px !important;
+  height: 40px;
+  border: 0.5px solid #3e434b;
+  border-radius: 5px;
+  font-family: Montserrat;
+  font-size: 14px;
+  line-height: 10px;
+  min-height: 35px !important;
+  font-weight: 600;
+  background: #000;
+  color: #fff;
+  text-transform: uppercase;
+  width: 100% !important;
+}
+
+.btn1:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn2:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.description {
+  color: #000;
+  font-weight: 500;
+  font-family: Montserrat;
+  line-height: 19px;
+  font-size: 16px;
+  padding-top: 0;
+  font-size: 26px;
+}

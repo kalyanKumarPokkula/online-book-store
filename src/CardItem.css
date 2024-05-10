@@ -1,0 +1,32 @@
+.card-body1 {
+  border-top: 1px solid #191817;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-btn {
+  font-family: Montserrat;
+  color: #242424;
+  font-family: Montserrat;
+  background: transparent;
+  border: 1px solid #3e434b;
+  border-radius: 5px;
+  width: 136px !important;
+  height: 40px;
+  padding: 10px 0;
+  font-size: 14px;
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.product-btn:hover {
+  background-color: #242424;
+  color: #fff;
+}
