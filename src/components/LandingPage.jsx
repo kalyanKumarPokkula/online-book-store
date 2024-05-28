@@ -1,9 +1,28 @@
-import summer from "./assets/summer.jpg";
-import giftcard from "./assets/giftcard.jpg";
-import halfprice from "./assets/half-price.jpg";
 import Card from "./Card";
+import { useEffect, useState } from "react";
+import summer from "../assets/summer.jpg";
+import giftcard from "../assets/giftcard.jpg";
+import halfprice from "../assets/half-price.jpg";
+import axios from "axios";
 
 function LandingPage() {
+  const [books, setBooks] = useState([]);
+  const [newBooks, setNewBooks] = useState([]);
+  useEffect(() => {
+    async function init() {
+      try {
+        let newbooks = await axios.get("http://localhost:3000/books/year/2024");
+        let response = await axios.get("http://localhost:3000/books");
+        console.log(response.data);
+        setBooks([...response.data.slice(0, 10)]);
+        setNewBooks([...newbooks.data.slice(0, 5)]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    init();
+  }, []);
   return (
     <div>
       <div
@@ -41,8 +60,12 @@ function LandingPage() {
           <span class="visually-hidden">Next</span>
         </button>
       </div>
-      <Card />
-      <Card />
+      <Card
+        title={"New & Noteworthy"}
+        books={newBooks}
+        url="newandnoteworthy"
+      />
+      <Card title={"Books"} books={books.slice(5, 10)} url="books" />
     </div>
   );
 }

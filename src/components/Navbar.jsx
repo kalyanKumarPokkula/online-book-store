@@ -8,7 +8,7 @@ function Navbar() {
         <div className="toolbar">
           <div>
             <Link style={{ color: "#191817" }} to="/">
-              <h2 style={{ fontSize: "1.6rem" }}>Book Store</h2>
+              <h2 class="text-3xl font-semibold">Book Store</h2>
             </Link>
           </div>
           <div className="toolbar-icons">
@@ -49,23 +49,25 @@ function Navbar() {
               </a>
             </div>
             <div className="head-icons">
-              <a href="#">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="19.628"
-                  height="22.183"
-                  viewBox="0 0 19.628 22.183"
-                >
-                  <path
-                    id="_9004670_bag_shopping_store_shop_icon"
-                    data-name="9004670_bag_shopping_store_shop_icon"
-                    d="M5.064,21.983H17.155a3.664,3.664,0,0,0,3.635-4.122L19.644,8.7A3.668,3.668,0,0,0,16.012,5.5h-.322V4.58a4.58,4.58,0,1,0-9.16,0V5.5H6.207A3.668,3.668,0,0,0,2.572,8.7l-1.145,9.16a3.664,3.664,0,0,0,3.636,4.122Zm3.3-17.4a2.748,2.748,0,0,1,5.5,0V5.5h-5.5ZM3.245,18.092,4.39,8.933a1.832,1.832,0,0,1,1.817-1.6h.322V9.16a.916.916,0,0,0,1.832,0V7.328h5.5V9.16a.916.916,0,0,0,1.832,0V7.328h.322a1.832,1.832,0,0,1,1.817,1.6l1.145,9.16a1.832,1.832,0,0,1-1.819,2.059H5.064a1.832,1.832,0,0,1-1.817-2.059Z"
-                    transform="translate(-1.294 0.1)"
-                    stroke="#000"
-                    stroke-width="0.2"
-                  ></path>
-                </svg>
-              </a>
+              <Link to="/cart">
+                <a href="#">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="19.628"
+                    height="22.183"
+                    viewBox="0 0 19.628 22.183"
+                  >
+                    <path
+                      id="_9004670_bag_shopping_store_shop_icon"
+                      data-name="9004670_bag_shopping_store_shop_icon"
+                      d="M5.064,21.983H17.155a3.664,3.664,0,0,0,3.635-4.122L19.644,8.7A3.668,3.668,0,0,0,16.012,5.5h-.322V4.58a4.58,4.58,0,1,0-9.16,0V5.5H6.207A3.668,3.668,0,0,0,2.572,8.7l-1.145,9.16a3.664,3.664,0,0,0,3.636,4.122Zm3.3-17.4a2.748,2.748,0,0,1,5.5,0V5.5h-5.5ZM3.245,18.092,4.39,8.933a1.832,1.832,0,0,1,1.817-1.6h.322V9.16a.916.916,0,0,0,1.832,0V7.328h5.5V9.16a.916.916,0,0,0,1.832,0V7.328h.322a1.832,1.832,0,0,1,1.817,1.6l1.145,9.16a1.832,1.832,0,0,1-1.819,2.059H5.064a1.832,1.832,0,0,1-1.817-2.059Z"
+                      transform="translate(-1.294 0.1)"
+                      stroke="#000"
+                      stroke-width="0.2"
+                    ></path>
+                  </svg>
+                </a>
+              </Link>
             </div>
           </div>
         </div>

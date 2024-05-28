@@ -11,13 +11,13 @@
 }
 
 .price {
-  font-size: 30px;
+  /* font-size: 30px;
   font-family: Montserrat;
   font-weight: 600;
   line-height: 37px;
   overflow: hidden;
   text-align: left;
-  color: #000;
+  color: #000; */
   margin-top: 20px;
   margin-left: 12px;
 }

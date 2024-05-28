@@ -1,14 +1,28 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Signin() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  async function submitHandler(e) {
+    e.preventDefault();
+    try {
+      let response = await axios.post("http://localhost:8080/api/signin", {
+        Email: email,
+        Password: password,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div class="w-full h-4/5 container mx-auto px-8 py-8 mt-10 flex gap-20 justify-center items-center md:flex-row">
       <form
         style={{ backgroundColor: "#ffe619" }}
         class="basis-4/12 p-12 rounded-lg"
+        onSubmit={submitHandler}
       >
         <h1 class="text-3xl mb-8 font-bold text-center">Sign In</h1>
         <div class="mb-6">
