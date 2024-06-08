@@ -17,6 +17,7 @@ import { cartState } from "./Store/CartState";
 import { useSetRecoilState } from "recoil";
 import totalamount from "./helper";
 import axios from "axios";
+import Shipping from "./components/Shipping";
 
 function App() {
   const setCartItems = useSetRecoilState(cartState);
@@ -52,6 +53,7 @@ function App() {
         <Route path="/top50" element={<Top50 />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout/cn/:id/information" element={<Information />} />
+        <Route path="/checkout/cn/:id/shipping" element={<Shipping />} />
       </Routes>
     </>
   );

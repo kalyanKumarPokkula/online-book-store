@@ -78,6 +78,7 @@ function SingleProductLayout() {
               <button
                 class="btn2"
                 onClick={() => {
+                  addToCart();
                   navigator(`/checkout/cn/${id}/information`);
                 }}
               >

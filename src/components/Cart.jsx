@@ -5,9 +5,11 @@ import axios from "axios";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { cartState } from "../Store/CartState";
 import totalamount from "../helper";
+import { useNavigate } from "react-router-dom";
 function Cart() {
   const cartItems = useRecoilValue(cartState);
   const newCartItems = useSetRecoilState(cartState);
+  const navigator = useNavigate();
 
   function deleteHandler(id) {
     async function deleteCartItem() {
@@ -84,7 +86,14 @@ function Cart() {
               <p class="text-2xl font-bold">₹ {cartItems.totalPrice}</p>
             </div>
             <p class="text-base">(inclusive of taxes)</p>
-            <button class="cart-btn">proceed to checkout</button>
+            <button
+              class="cart-btn"
+              onClick={() => {
+                navigator(`/checkout/cn/${0}/information`);
+              }}
+            >
+              proceed to checkout
+            </button>
           </div>
         </div>
       )}
