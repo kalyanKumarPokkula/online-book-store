@@ -25,7 +25,7 @@ function Cart_Card({ id, title, image, price, quantity, onDelete }) {
         <p>₹ {price}</p>
         <p
           style={{ cursor: "pointer" }}
-          onClick={e => {
+          onClick={(e) => {
             onDelete(id);
           }}
         >

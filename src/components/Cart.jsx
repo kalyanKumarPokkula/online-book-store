@@ -6,19 +6,36 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { cartState } from "../Store/CartState";
 import totalamount from "../helper";
 import { useNavigate } from "react-router-dom";
+import { authState } from "../Store/AuthState";
+import Signin from "./Signin";
+
 function Cart() {
   const cartItems = useRecoilValue(cartState);
   const newCartItems = useSetRecoilState(cartState);
+  const user = useRecoilValue(authState);
   const navigator = useNavigate();
+
+  // useEffect(() => {
+  //   console.log(user.email, user.userId);
+  //   if (user.userId == null) {
+  //     navigator("/signin");
+  //   }
+  // });
 
   function deleteHandler(id) {
     async function deleteCartItem() {
       try {
         let response = await axios.delete(
-          `http://localhost:3000/cartitem/${id}`
+          `${
+            import.meta.env.VITE_APIGATEWAY_HOST
+          }/bookservice/api/cartitem/${id}`
         );
         console.log(response.data);
-        let responses = await axios.get(`http://localhost:3000/cartitems/${1}`);
+        let responses = await axios.get(
+          `${
+            import.meta.env.VITE_APIGATEWAY_HOST
+          }/bookservice/api/cartitems/${1}`
+        );
         console.log(responses.data);
         newCartItems({
           cart: responses.data,
@@ -38,8 +55,10 @@ function Cart() {
     <div>
       <h2 class="text-3xl font-bold text-center mt-6 mb-10">My Bag</h2>
       {cartItems.cart.length === 0 && (
-        <h3 class="text-2xl font-medium	 text-center mt-10">
-          There Are No Items In Your Cart
+        <h3 class="mt-10 mb-10">
+          <p class="text-2xl font-medium p-24 m-10 text-center">
+            There Are No Items In Your Cart
+          </p>
         </h3>
       )}
       {cartItems.cart.length > 0 && (
@@ -58,7 +77,7 @@ function Cart() {
             className="basis-8/12"
           >
             {cartItems.cart &&
-              cartItems.cart.map(item => (
+              cartItems.cart.map((item) => (
                 <Cart_Card
                   key={item.cart_item_id}
                   id={item.cart_item_id}

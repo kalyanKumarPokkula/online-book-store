@@ -18,6 +18,11 @@ import { useSetRecoilState } from "recoil";
 import totalamount from "./helper";
 import axios from "axios";
 import Shipping from "./components/Shipping";
+import Footer from "./components/Footer";
+import Orders from "./components/Orders";
+import SearchBar from "./components/SearchBar";
+import Helper from "./components/Helper";
+import Logout from "./components/Logout";
 
 function App() {
   const setCartItems = useSetRecoilState(cartState);
@@ -26,7 +31,11 @@ function App() {
     async function init() {
       try {
         console.log("inside the cart");
-        let response = await axios.get(`http://localhost:3000/cartitems/${1}`);
+        let response = await axios.get(
+          `${
+            import.meta.env.VITE_APIGATEWAY_HOST
+          }/bookservice/api/cartitems/${1}`
+        );
         console.log(response.data);
         setCartItems({
           cart: response.data,
@@ -47,6 +56,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/search" element={<SearchBar />} />
         <Route path="/newandnoteworthy" element={<NewAndNoteworthy />} />
         <Route path="/books" element={<Books />} />
         <Route path="/book/:id" element={<SingleProductLayout />} />
@@ -54,7 +64,11 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout/cn/:id/information" element={<Information />} />
         <Route path="/checkout/cn/:id/shipping" element={<Shipping />} />
+        <Route path="/order" element={<Orders />} />
+        <Route path="/helping" element={<Helper />} />
+        <Route path="/logout" element={<Logout />} />
       </Routes>
+      <Footer />
     </>
   );
 }

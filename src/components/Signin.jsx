@@ -1,18 +1,36 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { authState } from "../Store/AuthState";
+import { useSetRecoilState, useRecoilState } from "recoil";
 
 function Signin() {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const setAuthState = useSetRecoilState(authState);
+  const navigator = useNavigate();
+
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token !== null) {
+      navigator("/logout");
+    }
+  }, []);
   async function submitHandler(e) {
     e.preventDefault();
     try {
-      let response = await axios.post("http://localhost:8080/api/signin", {
+      let response = await axios.post("http://localhost:3002/api/signin", {
         Email: email,
         Password: password,
       });
-      console.log(response);
+      console.log(response.data);
+      setAuthState({
+        username: response.data.user,
+        email: response.data.userEmail,
+        userId: response.data.user_id,
+      });
+      localStorage.setItem("token", response.data.token);
+      navigator("/");
     } catch (error) {
       console.log(error);
     }
@@ -20,7 +38,7 @@ function Signin() {
   return (
     <div class="w-full h-4/5 container mx-auto px-8 py-8 mt-10 flex gap-20 justify-center items-center md:flex-row">
       <form
-        style={{ backgroundColor: "#ffe619" }}
+        style={{ backgroundColor: "#FFA500" }}
         class="basis-4/12 p-12 rounded-lg"
         onSubmit={submitHandler}
       >
@@ -35,7 +53,7 @@ function Signin() {
             type="email"
             value={email}
             placeholder="Username or E-mail"
-            onChange={e => {
+            onChange={(e) => {
               setemail(e.target.value);
             }}
             required
@@ -51,7 +69,7 @@ function Signin() {
             type="password"
             value={password}
             placeholder="Password"
-            onChange={e => {
+            onChange={(e) => {
               setpassword(e.target.value);
             }}
             required

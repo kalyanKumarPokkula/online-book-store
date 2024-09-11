@@ -14,10 +14,15 @@ function ProductCard({ id, posterUrl, title, author, price }) {
         book_id: id,
         quantity: 1,
       };
-      let response = await axios.post("http://localhost:3000/cartitem", {
-        ...body,
-      });
-      let responses = await axios.get(`http://localhost:3000/cartitems/${1}`);
+      let response = await axios.post(
+        `${import.meta.env.VITE_APIGATEWAY_HOST}/bookservice/api/cartitem`,
+        {
+          ...body,
+        }
+      );
+      let responses = await axios.get(
+        `${import.meta.env.VITE_APIGATEWAY_HOST}/bookservice/api/cartitems/${1}`
+      );
       console.log(responses.data);
       setCartItems({
         cart: responses.data,

@@ -7,18 +7,32 @@ import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 
 function Information() {
+  const [userId, setUserId] = useState(2);
+  const [addressId, setAddressId] = useState();
   const [book, setBook] = useState(null);
   const CartItems = useRecoilValue(cartState);
   const { id } = useParams();
   const navigator = useNavigate();
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = useState();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("");
+  const [addressLine1, setAddressLine1] = useState("");
+  const [addressLine2, setAddressLine2] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     if (Number(id) > 0) {
-      console.log(typeof id);
-      console.log("inside the cart", id);
+      // console.log(typeof id);
+      // console.log("inside the cart", id);
       async function getBook() {
         try {
-          const response = await axios.get(`http://localhost:3000/book/${id}`);
+          const response = await axios.get(
+            `${import.meta.env.VITE_APIGATEWAY_HOST}/bookservice/api/book/${id}`
+          );
           setBook(response.data);
         } catch (error) {
           console.log(error);
@@ -26,10 +40,69 @@ function Information() {
       }
       getBook();
     }
+
+    // if (userId != null) {
+    //   async function getAddress() {
+    //     try {
+    //       const response = await axios.get(
+    //         `${
+    //           import.meta.env.VITE_APIGATEWAY_HOST
+    //         }/orderservice/api/address/user/${userId}`
+    //       );
+    //       console.log(response.data);
+    //       setAddressLine1(response.data.addressLine1);
+    //       setCity(response.data.city);
+    //       setCountry(response.data.country);
+    //       setState(response.data.state);
+    //       setEmail(response.data.email);
+    //       setFirstName(response.data.firstName);
+    //       setLastName(response.data.lastName);
+    //       setPhoneNumber(response.data.phoneNumber);
+    //       setPostalCode(response.data.postalCode);
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+    //   }
+    //   getAddress();
+    // }
   }, []);
 
   function paymentHandler(e) {
     e.preventDefault();
+    // async function createAddress() {
+    //   try {
+    //     const payload = {
+    //       firstName,
+    //       lastName,
+    //       country,
+    //       city,
+    //       state,
+    //       postalCode,
+    //       addressLine1,
+    //       addressLine2,
+    //       email,
+    //       phoneNumber,
+    //     };
+    //     console.log(payload);
+    //     let response = await axios.post(
+    //       `${import.meta.env.VITE_APIGATEWAY_HOST}/orderservice/api/address`,
+
+    //       payload,
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //         },
+    //       }
+    //     );
+    //     console.log(response.data);
+    //     setAddressId(response.data.id);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+
+    //   payment();
+    // }
+    // createAddress();
     async function createCheckout() {
       try {
         let body;
@@ -39,17 +112,32 @@ function Information() {
             price: book.Book.price,
             quantity: 1,
             image: book.Book.posterurl,
+            addressId: addressId,
           };
         } else {
           body = {
+            bookId: id,
             name: book.title,
             price: book.price,
             quantity: 1,
             image: book.posterurl,
+            firstName,
+            lastName,
+            country,
+            city,
+            state,
+            postalCode,
+            addressLine1,
+            addressLine2,
+            email,
+            phoneNumber,
           };
         }
+        console.log(body);
         let response = await axios.post(
-          "http://localhost:4242/create_checkout-session",
+          `${
+            import.meta.env.VITE_APIGATEWAY_HOST
+          }/paymentservice/api/create_checkout-session`,
           body,
           {
             headers: {
@@ -79,6 +167,8 @@ function Information() {
               class="form-control"
               id="Email"
               placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
           <div class="col-12">
@@ -92,18 +182,42 @@ function Information() {
           <h2 style={{ marginTop: "35px" }} class="text-lg font-bold">
             Shipping address
           </h2>
+          <div class="col-12">
+            <label for="inputCountry" class="form-label">
+              Country
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputCountry"
+              onChange={(e) => setCountry(e.target.value)}
+              value={country}
+            ></input>
+          </div>
           <div class="col-md-6">
             <label for="inputEmail4" class="form-label">
               First
             </label>
             {/* <input type="email" class="form-control" id="inputEmail4"> */}
-            <input type="text" class="form-control" id="inputemail4" />
+            <input
+              type="text"
+              class="form-control"
+              id="inputemail4"
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+            />
           </div>
           <div class="col-md-6">
             <label for="inputPassword4" class="form-label">
               Last
             </label>
-            <input type="text" class="form-control" id="inputemail4" />
+            <input
+              type="text"
+              class="form-control"
+              id="inputemail4"
+              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+            />
           </div>
           <div class="col-12">
             <label for="inputAddress" class="form-label">
@@ -114,6 +228,8 @@ function Information() {
               class="form-control"
               id="inputAddress"
               placeholder="1234 Main St"
+              onChange={(e) => setAddressLine1(e.target.value)}
+              value={addressLine1}
             ></input>
           </div>
           <div class="col-12">
@@ -125,21 +241,67 @@ function Information() {
               class="form-control"
               id="inputAddress2"
               placeholder="Apartment, studio, or floor"
+              onChange={(e) => setAddressLine2(e.target.value)}
+              value={addressLine2}
             />
           </div>
           <div class="col-md-6">
             <label for="inputCity" class="form-label">
               City
             </label>
-            <input type="text" class="form-control" id="inputCity" />
+            <input
+              type="text"
+              class="form-control"
+              id="inputCity"
+              onChange={(e) => setCity(e.target.value)}
+              value={city}
+            />
           </div>
           <div class="col-md-4">
             <label for="inputState" class="form-label">
               State
             </label>
-            <select id="inputState" class="form-select">
+            <select
+              id="inputState"
+              class="form-select"
+              onChange={(e) => setState(e.target.value)}
+              value={state}
+            >
               <option selected>Choose...</option>
-              <option>...</option>
+              <option>Andhra Pradesh</option>
+              <option>Arunachal Pradesh</option>
+              <option>Assam</option>
+              <option>Bihar</option>
+              <option>Chhattisgarh</option>
+              <option>Goa</option>
+              <option>Gujarat</option>
+              <option>Haryana</option>
+              <option>Himachal Pradesh</option>
+              <option>Jharkhand</option>
+              <option>Karnataka</option>
+              <option>Kerala</option>
+              <option>Madhya Pradesh</option>
+              <option>Maharashtra</option>
+              <option>Manipur</option>
+              <option>Meghalaya</option>
+              <option>Mizoram</option>
+              <option>Nagaland</option>
+              <option>Odisha</option>
+              <option>Punjab</option>
+              <option>Rajasthan</option>
+              <option>Sikkim</option>
+              <option>Tamil Nadu</option>
+              <option>Telangana</option>
+              <option>Tripura</option>
+              <option>Uttar Pradesh</option>
+              <option>Uttarakhand</option>
+              <option>West Bengal</option>
+              <option>Andaman and Nicobar Islands</option>
+              <option>Chandigarh</option>
+              <option>Dadra and Nagar Haveli and Daman and Diu</option>
+              <option>Delhi</option>
+              <option>Lakshadweep</option>
+              <option>Puducherry</option>
             </select>
           </div>
 
@@ -147,7 +309,13 @@ function Information() {
             <label for="inputZip" class="form-label">
               Zip
             </label>
-            <input type="text" class="form-control" id="inputZip" />
+            <input
+              type="text"
+              class="form-control"
+              id="inputZip"
+              onChange={(e) => setPostalCode(e.target.value)}
+              value={postalCode}
+            />
           </div>
           <div class="col-12">
             <label for="inputAddress" class="form-label">
@@ -158,6 +326,8 @@ function Information() {
               class="form-control"
               id="inputAddress"
               placeholder="Phone Number"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={phoneNumber}
             ></input>
           </div>
 
@@ -171,7 +341,7 @@ function Information() {
           </div>
           <div class="col-12">
             <button type="submit" class="shipping-btn" onClick={paymentHandler}>
-              Continue to Shipping
+              Continue to Payment
             </button>
           </div>
         </form>
@@ -180,7 +350,7 @@ function Information() {
         <div class="p-12 ">
           {Number(id) === 0 &&
             CartItems &&
-            CartItems.cart.map(book => (
+            CartItems.cart.map((book) => (
               <div class="pr-6 pl-6 flex mt-3 justify-between items-center">
                 <div class="flex gap-8 items-center">
                   {" "}

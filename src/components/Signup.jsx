@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 function Signup() {
@@ -7,10 +7,17 @@ function Signup() {
   const [password, setpassword] = useState();
   const [username, setusername] = useState();
 
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token !== null) {
+      navigator("/logout");
+    }
+  }, []);
+
   async function submitHandler(e) {
     e.preventDefault();
     try {
-      let response = await axios.post("http://localhost:8080/api/signup", {
+      let response = await axios.post("http://localhost:3002/api/signup", {
         Email: email,
         UserName: username,
         Password: password,
@@ -27,7 +34,7 @@ function Signup() {
   return (
     <div class="w-full h-4/5 container mx-auto px-8 py-8 mt-6 flex gap-20 justify-center items-center md:flex-row">
       <form
-        style={{ backgroundColor: "#ffe619" }}
+        style={{ backgroundColor: "#FFA500" }}
         class="basis-4/12 p-12 rounded-lg"
         onSubmit={submitHandler}
       >
@@ -41,7 +48,8 @@ function Signup() {
             id="username"
             type="text"
             placeholder="Username"
-            onChange={e => {
+            value={username}
+            onChange={(e) => {
               setusername(e.target.value);
             }}
             required
@@ -56,7 +64,8 @@ function Signup() {
             id="password"
             type="password"
             placeholder="Password"
-            onChange={e => {
+            value={password}
+            onChange={(e) => {
               setpassword(e.target.value);
             }}
             required
@@ -71,7 +80,8 @@ function Signup() {
             id="Email"
             type="email"
             placeholder="Email-address"
-            onChange={e => {
+            value={email}
+            onChange={(e) => {
               setemail(e.target.value);
             }}
             required

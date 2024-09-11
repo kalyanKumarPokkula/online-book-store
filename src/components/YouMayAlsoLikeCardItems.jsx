@@ -1,25 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import "./CardItem.css";
 import { cartState } from "../Store/CartState";
-import { authState } from "../Store/AuthState";
-import { useSetRecoilState, useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import axios from "axios";
-
 import totalamount from "../helper";
-function CardItem({ posterUrl, id, author, price, title }) {
+function YouMayAlsoLikeCardItem({ posterUrl, id, author, price, title }) {
   const navigate = new useNavigate();
-  const user = useRecoilState(authState);
+
   const setCartItems = useSetRecoilState(cartState);
 
   async function addToCart() {
     try {
-      // if (user[0].userId == null) {
-      //   navigate("/signin");
-      // }
       let body = {
         cart_id: 1,
         book_id: id,
-        quantity: user[0].userId,
+        quantity: 1,
       };
       let response = await axios.post(
         `${import.meta.env.VITE_APIGATEWAY_HOST}/bookservice/api/cartitem`,
@@ -46,14 +41,16 @@ function CardItem({ posterUrl, id, author, price, title }) {
         src={posterUrl}
         alt="image"
         onClick={() => {
-          navigate(`/book/${id}`);
+          window.location.href = `/book/${id}`;
+          window.location.reload();
         }}
       />
       <div class="card-body1">
         <h6
           class="text-sg font-medium text-center mb-2"
           onClick={() => {
-            navigate(`/book/${id}`);
+            window.location.href = `/book/${id}`;
+            window.location.reload();
           }}
         >
           {title}
@@ -69,4 +66,4 @@ function CardItem({ posterUrl, id, author, price, title }) {
   );
 }
 
-export default CardItem;
+export default YouMayAlsoLikeCardItem;

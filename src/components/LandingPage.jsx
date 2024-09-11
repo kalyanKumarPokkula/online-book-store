@@ -4,6 +4,8 @@ import summer from "../assets/summer.jpg";
 import giftcard from "../assets/giftcard.jpg";
 import halfprice from "../assets/half-price.jpg";
 import axios from "axios";
+import fiction from "../assets/fiction.webp";
+import gita from "../assets/gita.webp";
 
 function LandingPage() {
   const [books, setBooks] = useState([]);
@@ -11,8 +13,14 @@ function LandingPage() {
   useEffect(() => {
     async function init() {
       try {
-        let newbooks = await axios.get("http://localhost:3000/books/year/2024");
-        let response = await axios.get("http://localhost:3000/books");
+        let newbooks = await axios.get(
+          `${
+            import.meta.env.VITE_APIGATEWAY_HOST
+          }/bookservice/api/books/year/2024`
+        );
+        let response = await axios.get(
+          `${import.meta.env.VITE_APIGATEWAY_HOST}/bookservice/api/books`
+        );
         console.log(response.data);
         setBooks([...response.data.slice(0, 10)]);
         setNewBooks([...newbooks.data.slice(0, 5)]);
@@ -35,7 +43,10 @@ function LandingPage() {
             <img src={summer} class="d-block w-100" alt="" />
           </div>
           <div class="carousel-item">
-            <img src={giftcard} class="d-block w-100" alt="" />
+            <img src={gita} class="d-block w-100" alt="" />
+          </div>
+          <div class="carousel-item">
+            <img src={fiction} class="d-block w-100" alt="" />
           </div>
           <div class="carousel-item">
             <img src={halfprice} class="d-block w-100" alt="" />

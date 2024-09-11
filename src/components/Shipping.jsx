@@ -15,7 +15,9 @@ function Shipping() {
       console.log("inside the Shipping", id);
       async function getBook() {
         try {
-          const response = await axios.get(`http://localhost:3000/book/${id}`);
+          const response = await axios.get(
+            `${import.meta.env.VITE_APIGATEWAY_HOST}/bookservice/api/book/${id}`
+          );
           setBook(response.data);
         } catch (error) {
           console.log(error);
@@ -33,7 +35,7 @@ function Shipping() {
         <div class="p-12 ">
           {Number(id) === 0 &&
             CartItems &&
-            CartItems.cart.map(book => (
+            CartItems.cart.map((book) => (
               <div class="pr-6 pl-6 flex mt-3 justify-between items-center">
                 <div class="flex gap-8 items-center">
                   {" "}

@@ -1,12 +1,14 @@
-import "./Card.css";
-import CardItem from "./CardItem";
 import { useNavigate } from "react-router-dom";
+// import CardItem from "./CardItem";
+import YouMayAlsoLikeCardItem from "./YouMayAlsoLikeCardItems";
 
-function Card({ title, books, url }) {
+function Youmayalsolike({ books, url }) {
   const navigate = useNavigate();
   return (
-    <div className="products-section">
-      <h2 className="text-3xl font-bold text-center mt-10 mb-2">{title}</h2>
+    <div className="w-5/5 h-5/5 container mx-auto mt-6 pr-16 pl-24">
+      <h2 className="text-2xl font-bold text-left mt-10 mb-2">
+        You may also like
+      </h2>
 
       <p
         class="more-link"
@@ -24,8 +26,8 @@ function Card({ title, books, url }) {
       </p>
       <div className="book-card">
         {books.map((book) => (
-          <CardItem
-            key={book.book_id}
+          <YouMayAlsoLikeCardItem
+            key={book.id}
             id={book.book_id}
             title={book.title}
             author={book.Author.name}
@@ -38,4 +40,4 @@ function Card({ title, books, url }) {
   );
 }
 
-export default Card;
+export default Youmayalsolike;
